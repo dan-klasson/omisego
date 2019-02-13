@@ -5,12 +5,16 @@ defmodule GithubOmgWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    #plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :csrf do
+    plug :protect_from_forgery # to here
   end
 
   scope "/", GithubOmgWeb do
@@ -19,8 +23,8 @@ defmodule GithubOmgWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", GithubOmgWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", GithubOmgWeb do
+    pipe_through :api
+    post "/convert", ConvertController, :convert
+  end
 end
