@@ -1,35 +1,52 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>A productive web framework that<br/>does not compromise speed and maintainability.</p>
-</section>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Repository</th>
+      <th scope="col">Owner</th>
+      <th scope="col">Stars</th>
+      <th scope="col">Watchers</th>
+      <th scope="col">Forks</th>
+    </tr>
+  </thead>
+  <tbody>
+   <%= for data <- @repos["items"] do %>
+    <tr>
+      <td><a href="<%= data["html_url"] %>" target="_blank"><%= data["name"] %></a></td>
+      <td><%= data["owner"]["login"] %></td>
+      <td><%= data["stargazers_count"] %></td>
+      <td><%= data["watchers_count"] %></td>
+      <td><%= data["forks_count"] %></td>
+    </tr>
+   <% end %>
+  </tbody>
+</table>
 
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.4/CHANGELOG.md">v1.4 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on Freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-    </ul>
-  </article>
-</section>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+   <%= if @paginator.first != nil do %>
+    <li class="page-item">
+      <%= link "First", to: Routes.page_path(@conn, :index, @paginator.first), class: "page-link" %>
+    </li>
+   <% end %>
+   <%= if @paginator.previous != nil do %>
+    <li class="page-item">
+      <%= link "<", to: Routes.page_path(@conn, :index, @paginator.previous), class: "page-link" %>
+    </li>
+   <% end %>
+   <%= for page <- @paginator.pages do %>
+    <li class="page-item<%= if page == @paginator.page do %> active<% end %>">
+      <%= link page, to: Routes.page_path(@conn, :index, page), class: "page-link" %>
+    </li>
+   <% end %>
+   <%= if @paginator.next != nil do %>
+    <li class="page-item">
+      <%= link ">", to: Routes.page_path(@conn, :index, @paginator.next), class: "page-link" %>
+    </li>
+   <% end %>
+   <%= if @paginator.last != nil do %>
+    <li class="page-item">
+      <%= link "Last", to: Routes.page_path(@conn, :index, @paginator.last), class: "page-link" %>
+    </li>
+   <% end %>
+  </ul>
+</nav>

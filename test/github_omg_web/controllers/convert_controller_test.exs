@@ -3,7 +3,6 @@ defmodule GithubOmgWeb.ConvertControllerTest do
 
   describe "/api/convert" do
 
-    #@tag :wip
     test "submitted json returns modified json", %{conn: conn} do
       {:ok, body} = File.read("test/data/convert__input.json")
       response = conn
@@ -30,17 +29,5 @@ defmodule GithubOmgWeb.ConvertControllerTest do
 
     end
 
-
-    #@TODO: figure out how to not throw a Jason.Decode exception here
-    @tag :skip
-    test "returns status code 400 on invalid json", %{conn: conn} do
-
-      response = conn
-        |> put_req_header("content-type", "application/json")
-        |> post(Routes.convert_path(conn, :convert), "asdf")
-
-      #require IEx; IEx.pry
-      assert response.status == 500
-    end
   end
 end

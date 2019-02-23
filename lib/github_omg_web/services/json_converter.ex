@@ -1,5 +1,49 @@
 defmodule GithubOmgWeb.JSONConverter do
 
+  @moduledoc """
+  A module that converts JSON data to nested JSON data.
+
+  ## Examples
+
+  Takes JSON input like this:
+
+  {
+    "0": [
+      {
+        "id": 1,
+        "title": "Foo",
+        "children": [],
+        "parent_id": null
+      }
+    ],
+    "1": [
+      {
+        "id": 2,
+        "title": "Bar",
+        "children": [],
+        "parent_id": 1
+      },
+      {
+        "id": 2,
+        "title": "Baz",
+        "children": [],
+        "parent_id": 1
+      }
+  }
+  And converts it like this:
+
+  [
+      {
+          "id": 10,
+          "level": 0,
+          "parent_id": null,
+          "title": "Foo",
+          "children": [ // Bar & Baz go here ]
+      }
+  ]
+
+  """
+
   def action(body) do
     body
       |> flatten
