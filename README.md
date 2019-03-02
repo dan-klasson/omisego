@@ -1,19 +1,14 @@
-# GithubOmg
+### OmiseGO backend challenge
 
-To start your Phoenix server:
+A Phoenix application that consists of two parts.
 
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+* An API endpoint JSON converter
+* List page containing Github repositories tagged with Elixir
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+To start the application:
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+    mix phx.server
 
-## Learn more
+To run the tests:
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+    mix test
